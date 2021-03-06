@@ -1,0 +1,14 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: ticketing
+build:
+  artifacts:
+  - image: smunikoti/auth
+    context: auth
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - auth/src/infra/k8s/auth-depl.yaml
