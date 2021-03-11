@@ -14,7 +14,7 @@ spec:
     spec: 
       containers: 
         - name: auth 
-          image: smunikoti/auth
+          image: us.gcr.io/ticketing-dev-307021/auth
 
 ---
 
