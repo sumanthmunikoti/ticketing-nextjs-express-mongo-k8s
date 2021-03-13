@@ -1,9 +1,32 @@
-import express from 'express'
+import express, { Request, Response } from 'express';
+import { body, validationResult } from 'express-validator';
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/api/users/signup', (req, res) => {
-  res.send('Hi from signup')
-})
+router.post(
+  '/api/users/signup',
+  [
+    body('email')
+      .isEmail()
+      .withMessage('Email must be valid'),
+    body('password')
+      .trim()
+      .isLength({ min: 4, max: 20 })
+      .withMessage('Password must be between 4 and 20 characters')
+  ],
+  (req: Request, res: Response) => {
+  const errors = validationResult(req)
 
-export { router as signupRouter }
+  if(!errors.isEmpty()) {
+    throw new Error('Invalid email or password')
+  }
+
+  console.log('Creating user')
+  throw new Error('Error connecting to the database')
+
+  res.send({})
+
+  }
+);
+
+export { router as signupRouter };
